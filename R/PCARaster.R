@@ -1,0 +1,89 @@
+#' Performs Principle Component Analysis of Raster objects and returns summary and loadings for the componetns.
+#' @return a summary of the PCA is returnd as a strcture
+#' @examples \dontrun{
+#' pcaop = PCARaster()
+#' }
+#' @import raster
+#' @export
+
+
+## Main function to generate PCA for the selected bioclimatic layer and then save the pca components in ASCII format.
+## Run the function pcaop = PCARaster(). This function will ask user to choose the bioclimatic ASCII files. pca components are stored as Comp1.asc, Comp2.asc...... and so on. 
+## This function retuns the pca of the ascii data supplied to do further processing like checking for eigen values, broken stick etc. 
+## I have not included broken stick in this program but could be added. 
+
+PCARaster <- function()
+{
+  BioStack = MakeStack("Select bioclimatic ASCII files : ")
+  LoadingFile = readline("File name for PCA loading : ")
+  CompImpFile = readline("File name for PCA summary : ")
+  BioPt1 = rasterToPoints(BioStack)
+  #BioPt1 = rasterToPoints(BioStack)
+  print("Generating principal component")
+  pcaPt1 = prcomp(na.omit(BioPt1[,3:dim(BioPt1)[2]]), center=TRUE, scale = TRUE)
+  pcaScores = pcaPt1$x
+  d1 = dim(pcaScores)
+  for (i in 1:d1[2]) 
+  {
+    print(paste("Writing principal component file ", i ), sep = " ")
+    tbl1 = cbind(BioPt1[,1:2], pcaScores[,i])
+    ### Faster but has error sometimes. The problem lies with rasterFromXYZ function.
+    # r2 = rasterFromXYZ(tbl1,digits=5)
+    ### till here
+    
+    ## Slower but will work irrespective 
+    XYTbl = tbl1[,1:2]
+    r1 = BioStack[[i]]
+    r2 = rasterize(XYTbl,r1,field=tbl1[,3])
+    ## Till here
+    
+    FileName = paste("Comp",i,".asc", sep = "")
+    writeRaster(r2,FileName)
+  }
+  
+  write.table(pcaPt1$rotation, LoadingFile, row.names=T, col.names=T, sep = ",")
+  
+  ### Summary table for PCA 
+  StdDev = pcaPt1$sdev
+  ## Variance explained by each component
+  VarExp = pcaPt1$sdev^2/sum(pcaPt1$sdev^2)
+  # cumulative variance explained
+  CumVar = cumsum(VarExp)
+  ColNames = paste("PC", seq(1,length(StdDev)), sep = "")
+  RowNames = c("Standard deviation", "Proportion of Variance", "Cumulative Proportion")
+  
+  SumPCAMat = rbind(StdDev, VarExp, CumVar)
+  
+  write.table(SumPCAMat, CompImpFile, row.names=RowNames, col.names=ColNames, sep = ",")
+  ### variance explained by each component
+  ### pcaPt1$sdev^2 / sum(pcaPt1$sdev^2)
+  
+  ### find out how many components are required to get more than 95% 
+  print(CumVar)
+  i = which(CumVar >= 0.95)
+  print(paste("First ", i[1], " components explains >= 95% of variance.", sep = ""))
+  
+  return(pcaPt1)
+  
+}
+
+MakeStack <- function(Prompt)
+{
+  Mfiles = choose.files(caption=Prompt)
+  for (i in 1: length(Mfiles))
+  {
+    fl1 = raster(Mfiles[i])
+    if (i == 1)
+    {
+      stk = stack(fl1)
+    }
+    else
+    {
+      stk = stack(stk, fl1)
+    }
+    
+  }
+  return(stk)
+}
+
+

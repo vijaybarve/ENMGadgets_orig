@@ -1,0 +1,13 @@
+Package: ENMGadgets
+Type: Package
+Title: Tools for Pre and Post Processing in ENM workflow
+Version: 0.0.1
+Date: 2013-10-24
+Author: Narayani Barve <narayani@ku.edu>, Vijay Barve <vijaybarve@ku.edu>
+Maintainer: Vijay Barve <vijaybarve@ku.edu>
+Description: Frequently required functions to prepare data for Ecological Niche Modelling software and post processing the results into meaningful outputs.
+License: CC0
+Imports: raster
+Collate:
+    'PCARaster.R'
+
