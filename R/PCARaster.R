@@ -1,4 +1,14 @@
+#' PCARaster - PCA of Raster files
+#' 
 #' Performs Principle Component Analysis of Raster objects and returns summary and loadings for the componetns.
+#' 
+#' Main function to generate PCA for the selected bioclimatic layer and then save the pca components in ASCII format.
+#' Run the function pcaop = PCARaster(). This function will ask user to choose the bioclimatic ASCII files. pca components are stored as Comp1.asc, Comp2.asc...... and so on. 
+#' This function retuns the pca of the ascii data supplied to do further processing like checking for eigen values, broken stick etc. 
+#' 
+#' @param BioStackFiles - 
+#' @param LoadingFile - 
+#' @param CompImpFile - 
 #' @return a summary of the PCA is returnd as a strcture
 #' @examples \dontrun{
 #' pcaop = PCARaster()
@@ -7,16 +17,18 @@
 #' @export
 
 
-## Main function to generate PCA for the selected bioclimatic layer and then save the pca components in ASCII format.
-## Run the function pcaop = PCARaster(). This function will ask user to choose the bioclimatic ASCII files. pca components are stored as Comp1.asc, Comp2.asc...... and so on. 
-## This function retuns the pca of the ascii data supplied to do further processing like checking for eigen values, broken stick etc. 
-## I have not included broken stick in this program but could be added. 
-
-PCARaster <- function()
+PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
 {
-  BioStack = MakeStack("Select bioclimatic ASCII files : ")
-  LoadingFile = readline("File name for PCA loading : ")
-  CompImpFile = readline("File name for PCA summary : ")
+  if(is.na(BioStackFiles)){
+    BioStackFiles = choose.files("Select bioclimatic ASCII files : ")
+  }
+  BioStack = MakeStack(BioStackFiles)
+  if(is.na(LoadingFile)){
+    LoadingFile = readline("File name for PCA loading : ")
+  }
+  if(is.na(CompImpFile)){
+    CompImpFile = readline("File name for PCA summary : ")
+  }
   BioPt1 = rasterToPoints(BioStack)
   #BioPt1 = rasterToPoints(BioStack)
   print("Generating principal component")
@@ -40,9 +52,7 @@ PCARaster <- function()
     FileName = paste("Comp",i,".asc", sep = "")
     writeRaster(r2,FileName)
   }
-  
   write.table(pcaPt1$rotation, LoadingFile, row.names=T, col.names=T, sep = ",")
-  
   ### Summary table for PCA 
   StdDev = pcaPt1$sdev
   ## Variance explained by each component
@@ -51,9 +61,7 @@ PCARaster <- function()
   CumVar = cumsum(VarExp)
   ColNames = paste("PC", seq(1,length(StdDev)), sep = "")
   RowNames = c("Standard deviation", "Proportion of Variance", "Cumulative Proportion")
-  
   SumPCAMat = rbind(StdDev, VarExp, CumVar)
-  
   write.table(SumPCAMat, CompImpFile, row.names=RowNames, col.names=ColNames, sep = ",")
   ### variance explained by each component
   ### pcaPt1$sdev^2 / sum(pcaPt1$sdev^2)
@@ -62,14 +70,12 @@ PCARaster <- function()
   print(CumVar)
   i = which(CumVar >= 0.95)
   print(paste("First ", i[1], " components explains >= 95% of variance.", sep = ""))
-  
   return(pcaPt1)
-  
 }
 
-MakeStack <- function(Prompt)
+MakeStack <- function(Mfiles)
 {
-  Mfiles = choose.files(caption=Prompt)
+  #Mfiles = choose.files(caption=Prompt)
   for (i in 1: length(Mfiles))
   {
     fl1 = raster(Mfiles[i])
@@ -81,9 +87,7 @@ MakeStack <- function(Prompt)
     {
       stk = stack(stk, fl1)
     }
-    
   }
   return(stk)
 }
-
 

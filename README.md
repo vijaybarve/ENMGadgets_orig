@@ -31,3 +31,15 @@ Windows users have to first install [Rtools](http://cran.r-project.org/bin/windo
 ```r
 pcaop = PCARaster()
 ```
+
+#### CropRaster
+
+```r
+CropRaster()
+```
+
+#### distancefilter
+```r
+distancefilterr()
+```
+

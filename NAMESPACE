@@ -1,2 +1,5 @@
+export(CropRaster)
 export(PCARaster)
+export(distancefilter)
+import(maptools)
 import(raster)
