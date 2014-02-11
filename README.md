@@ -40,6 +40,10 @@ CropRaster()
 
 #### distancefilter
 ```r
-distancefilter()
+DistanceFilter()
 ```
 
+#### NicheViews
+```r
+NicheViews()
+```
