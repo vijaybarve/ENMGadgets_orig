@@ -38,7 +38,7 @@ pcaop = PCARaster()
 CropRaster()
 ```
 
-#### distancefilter
+#### DistanceFilter
 ```r
 DistanceFilter()
 ```
