@@ -1,15 +1,24 @@
-#' distancefilter - Raryfy the points in the dataset with threshold distance
+#' DistanceFilter - Raryfy the points in the dataset with threshold distance
 #' 
 #' @param input - input file name containing species name, Latitude and Longitude
 #' @param threshold - value of threshold in (decimal) degrees
 #' @param output - name of the output file
 #' @examples \dontrun{
-#' distancefilterr()
+#' DistanceFilter()
 #' }
 #' @export
 
-distancefilter <- function(input, threshold, output)
+DistanceFilter <- function(input=NA, threshold=1, output=NA)
 {
+  if(is.na(input)){
+    print("Please provide input file containing species name, Latitude and Longitude")
+    return(NULL)
+  }
+  if(is.na(output)){
+    print("Please provide output file name.")
+    return(NULL)
+  }
+  
   tbl2 = read.table(input, header=T, sep =",")
   tbl1 = tbl2[,2:3]
   dist1 <- as.matrix(dist(tbl1, method ="euclidian", upper=T))

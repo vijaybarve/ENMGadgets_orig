@@ -1,5 +1,6 @@
 export(CropRaster)
+export(DistanceFilter)
+export(NicheViews)
 export(PCARaster)
-export(distancefilter)
 import(maptools)
 import(raster)

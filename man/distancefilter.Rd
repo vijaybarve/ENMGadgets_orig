@@ -1,8 +1,8 @@
-\name{distancefilter}
-\alias{distancefilter}
-\title{distancefilter - Raryfy the points in the dataset with threshold distance}
+\name{DistanceFilter}
+\alias{DistanceFilter}
+\title{DistanceFilter - Raryfy the points in the dataset with threshold distance}
 \usage{
-  distancefilter(input, threshold, output)
+  DistanceFilter(input = NA, threshold = 1, output = NA)
 }
 \arguments{
   \item{input}{- input file name containing species name,
@@ -14,12 +14,12 @@
   \item{output}{- name of the output file}
 }
 \description{
-  distancefilter - Raryfy the points in the dataset with
+  DistanceFilter - Raryfy the points in the dataset with
   threshold distance
 }
 \examples{
 \dontrun{
-distancefilterr()
+DistanceFilter()
 }
 }
 

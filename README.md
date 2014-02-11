@@ -40,6 +40,6 @@ CropRaster()
 
 #### distancefilter
 ```r
-distancefilterr()
+distancefilter()
 ```
 
