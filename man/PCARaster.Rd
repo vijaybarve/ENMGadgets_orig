@@ -6,11 +6,14 @@
     CompImpFile = NA)
 }
 \arguments{
-  \item{BioStackFiles}{-}
+  \item{BioStackFiles}{- ESRI ASCII grid files of predictor
+  variables}
 
-  \item{LoadingFile}{-}
+  \item{LoadingFile}{- name of output file which stores
+  loadings for components}
 
-  \item{CompImpFile}{-}
+  \item{CompImpFile}{- name of output file of the PCA
+  summaries}
 }
 \value{
   a summary of the PCA is returnd as a strcture

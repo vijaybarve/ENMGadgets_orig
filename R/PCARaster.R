@@ -6,9 +6,9 @@
 #' Run the function pcaop = PCARaster(). This function will ask user to choose the bioclimatic ASCII files. pca components are stored as Comp1.asc, Comp2.asc...... and so on. 
 #' This function retuns the pca of the ascii data supplied to do further processing like checking for eigen values, broken stick etc. 
 #' 
-#' @param BioStackFiles - 
-#' @param LoadingFile - 
-#' @param CompImpFile - 
+#' @param BioStackFiles - ESRI ASCII grid files of predictor variables
+#' @param LoadingFile - name of output file which stores loadings for components
+#' @param CompImpFile - name of output file of the PCA summaries
 #' @return a summary of the PCA is returnd as a strcture
 #' @examples \dontrun{
 #' pcaop = PCARaster()
@@ -20,7 +20,7 @@
 PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
 {
   if(is.na(BioStackFiles)){
-    BioStackFiles = choose.files("Select bioclimatic ASCII files : ")
+    BioStackFiles = choose.files(caption="Select bioclimatic ASCII files : ")
   }
   BioStack = MakeStack(BioStackFiles)
   if(is.na(LoadingFile)){
