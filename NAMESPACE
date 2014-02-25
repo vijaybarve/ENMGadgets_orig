@@ -1,6 +1,7 @@
 export(CropRaster)
 export(DistanceFilter)
 export(NicheViews)
+export(PCAProjection)
 export(PCARaster)
 import(maptools)
 import(raster)

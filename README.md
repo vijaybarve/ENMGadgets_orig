@@ -19,7 +19,7 @@ require(ENMGadgets)
 
 Note: 
 
-Windows users have to first install [Rtools](http://cran.r-project.org/bin/windows/Rtools/).
+Windows users have to first install [Rtools](http://cran.r-project.org/bin/windows/Rtools/) and make sure the path is included in system path setting.
 
 ### Packages `ENMGadgets` depends on
 + [raster] (http://cran.r-project.org/web/packages/raster/)
@@ -30,6 +30,12 @@ Windows users have to first install [Rtools](http://cran.r-project.org/bin/windo
 
 ```r
 pcaop = PCARaster()
+```
+
+#### PCAProjection
+
+```r
+pcaop = PCAProjection()
 ```
 
 #### CropRaster
