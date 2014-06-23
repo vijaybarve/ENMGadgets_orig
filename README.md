@@ -13,7 +13,7 @@ Gadgets for Ecological Niche Modelling
 install.packages("devtools")
 require(devtools)
 
-install_github("ENMGadgets", "vijaybarve")
+install_github("ENMGadgets", "narayanibarve")
 require(ENMGadgets)
 ```
 
@@ -52,4 +52,9 @@ DistanceFilter()
 #### NicheViews
 ```r
 NicheViews()
+```
+
+#### BatchMask
+```r
+BatchMask()
 ```

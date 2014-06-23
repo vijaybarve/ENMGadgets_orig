@@ -15,12 +15,6 @@
 #' BatchMask()
 #' }
 #' @export
-
-
-
-#library(raster)
-#library(maptools)
-
 BatchMask <- function(ASCfilelist=NA, SHPfilelist=NA, OPDirName= NA)
 { 
   if(is.na(ASCfilelist)){
@@ -36,58 +30,31 @@ BatchMask <- function(ASCfilelist=NA, SHPfilelist=NA, OPDirName= NA)
   for (k in 1:d1)
   {
     ShapeFile1 = SHPfilelist[k]
-    
-    # OPDirName = SelTable[k,3]
     print (paste("Current shape file is : ", ShapeFile1, sep = ""))
-    #print ("Going to cropdata")
-    #print(ShapeFile1)
-    #print(OPDirName)
-    
     CropData(ASCfilelist,as.character(ShapeFile1),as.character(OPDirName))
-    
-    
   }
-  
-  
 }
-
-
 
 CropData<-function(filelist, ShapeFile, DirName)
 {
-  ## filelist = choose.files(caption="Select ASCII files to crop: ")
-  #ShapeFile = file.choose("Select shape file: ")
-  #ext1 = readline("Enter Sufix to output file name: ")
-  #print(ShapeFile)
   Shp1 = readShapePoly(ShapeFile)
   SList = unlist(strsplit(ShapeFile, "\\\\"))
   ShapeName = SList[length(SList)]
   ShapeDir = unlist(strsplit(ShapeName, ".shp"))[1]
   OpDir = paste(DirName, "\\", ShapeDir, sep="")
-  
   if (file.exists(OpDir) == FALSE)
   {
-    # print ("In dir name checking")
     dir.create(OpDir)
   }
-  
   for (i in 1:length(filelist))
   {
-    
-    
     r1 = raster(filelist[i])
     cr1 = crop(r1,Shp1)
     cr2 = mask(cr1,Shp1)
-    
     RList = unlist(strsplit(filelist[i], "\\\\"))
     FileName = RList[length(RList)]
-    
     print(paste("Current ASC file is ", FileName, sep=""))
     writeRaster(cr2, paste(OpDir, "\\", FileName, sep =""), "ascii")
-    plot(cr2)
-    
+    image(cr2,asp=1)
   }
 }
-
-
-## BatchMask()
