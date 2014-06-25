@@ -3,6 +3,7 @@
 export(BatchMask)
 export(CropRaster)
 export(DistanceFilter)
+export(ModelThreshold)
 export(NicheViews)
 export(PCAProjection)
 export(PCARaster)

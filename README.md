@@ -58,3 +58,8 @@ NicheViews()
 ```r
 BatchMask()
 ```
+
+#### ModelThreshold
+```r
+ModelThreshold()
+```
