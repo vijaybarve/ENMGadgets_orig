@@ -63,3 +63,8 @@ BatchMask()
 ```r
 ModelThreshold()
 ```
+
+#### PartialROC
+```r
+PartialROC()
+```
