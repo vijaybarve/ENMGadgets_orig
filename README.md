@@ -23,6 +23,9 @@ Windows users have to first install [Rtools](http://cran.r-project.org/bin/windo
 
 ### Packages `ENMGadgets` depends on
 + [raster] (http://cran.r-project.org/web/packages/raster/)
++ [maptools] (http://cran.r-project.org/web/packages/raster/)
++ [sqldf] (http://cran.r-project.org/web/packages/raster/)
++ [fields] (http://cran.r-project.org/web/packages/raster/)
 
 ### Functions currently available
 
@@ -67,4 +70,9 @@ ModelThreshold()
 #### PartialROC
 ```r
 PartialROC()
+```
+
+#### MOP
+```r
+MOP()
 ```

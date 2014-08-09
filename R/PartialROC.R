@@ -15,12 +15,13 @@
 #' OutputFile will have 4 columns, IterationNo, AUC_at_specified_value, AUC_AT_Random, AUC_Ratio. The first row will always have 0 th interation
 #' which is the actual Area Under the Curve without bootstrapping. And the rest of the rows contains auc ratio for all the bootstrap.
 #' @import raster
+#' @import sqldf
 #' @param PresenceFile - occurence point file (test data)
 #' @param PredictionFile - model prediction in .asc format 
-#' @param OmissionVal - Output folder, where subfolders of shape files will be created 
-#' @param RandomPercent - Output folder, where subfolders of shape files will be created 
-#' @param NoOfIteration - Output folder, where subfolders of shape files will be created 
-#' @param OutputFile - Output folder, where subfolders of shape files will be created 
+#' @param OmissionVal - Amount of error admissible along the Y-axis, given the requirements and conditions of the study. Value should range between 0 - 1 
+#' @param RandomPercent - Occurrence points to be sampled randomly from the test data for bootstrapping. 
+#' @param NoOfIteration - Number of iteration for bootstrapping
+#' @param OutputFile - Name of output file. If you specify the path, it will store it there otherwise it will save it in current working directory.
 #' @examples \dontrun{
 #' PartialROC()
 #' }

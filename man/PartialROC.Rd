@@ -11,13 +11,13 @@ PartialROC(PresenceFile = NA, PredictionFile = NA, OmissionVal = NA,
 
 \item{PredictionFile}{- model prediction in .asc format}
 
-\item{OmissionVal}{- Output folder, where subfolders of shape files will be created}
+\item{OmissionVal}{- Amount of error admissible along the Y-axis, given the requirements and conditions of the study. Value should range between 0 - 1}
 
-\item{RandomPercent}{- Output folder, where subfolders of shape files will be created}
+\item{RandomPercent}{- Occurrence points to be sampled randomly from the test data for bootstrapping.}
 
-\item{NoOfIteration}{- Output folder, where subfolders of shape files will be created}
+\item{NoOfIteration}{- Number of iteration for bootstrapping}
 
-\item{OutputFile}{- Output folder, where subfolders of shape files will be created}
+\item{OutputFile}{- Name of output file. If you specify the path, it will store it there otherwise it will save it in current working directory.}
 }
 \description{
 Function PartialROC generates the area under the curve values using bootstrap method. PartialROC is a model evaluation tool, used for
