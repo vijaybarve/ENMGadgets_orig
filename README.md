@@ -76,3 +76,8 @@ PartialROC()
 ```r
 MOP()
 ```
+
+#### BatchMaxent
+```r
+BatchMaxent()
+```

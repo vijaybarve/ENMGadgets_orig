@@ -1,8 +1,8 @@
 Package: ENMGadgets
 Type: Package
 Title: Tools for Pre and Post Processing in ENM workflow
-Version: 0.0.10
-Date: 2014-07-18
+Version: 0.0.11
+Date: 2014-08-17
 Author: Narayani Barve <narayani@ku.edu>, Vijay Barve <vijaybarve@ku.edu>
 Maintainer: Narayani Barve <narayani@ku.edu>
 Description: Frequently required functions to prepare data for Ecological Niche
@@ -12,4 +12,6 @@ Imports:
     raster,
     maptools,
     fields,
-    sqldf
+    sqldf,
+    rgdal,
+    dismo
