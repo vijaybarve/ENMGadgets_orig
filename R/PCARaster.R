@@ -9,6 +9,7 @@
 #' @param BioStackFiles - ESRI ASCII grid files of predictor variables
 #' @param LoadingFile - name of output file which stores loadings for components
 #' @param CompImpFile - name of output file of the PCA summaries
+#' @param OPfolder - name of output folder to save PCA component, loading and summary file
 #' @return a summary of the PCA is returnd as a strcture
 #' @examples \dontrun{
 #' pcaop = PCARaster()
@@ -17,7 +18,7 @@
 #' @export
 
 
-PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
+PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA,OPfolder=NA)
 {
   if(is.na(BioStackFiles)){
     BioStackFiles = choose.files(caption="Select bioclimatic ASCII files : ")
@@ -29,6 +30,9 @@ PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
   if(is.na(CompImpFile)){
     CompImpFile = readline("File name for PCA summary : ")
   }
+  if(is.na(OPfolder)){
+    OPfolder = choose.dir("Output folder to save PCA components : ")
+  }  
   BioPt1 = rasterToPoints(BioStack)
   #BioPt1 = rasterToPoints(BioStack)
   print("Generating principal component")
@@ -49,10 +53,10 @@ PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
     r2 = rasterize(XYTbl,r1,field=tbl1[,3])
     ## Till here
     
-    FileName = paste("Comp",i,".asc", sep = "")
+    FileName = paste(OPfolder, "/Comp",i,".asc", sep = "")
     writeRaster(r2,FileName)
   }
-  write.table(pcaPt1$rotation, LoadingFile, row.names=T, col.names=T, sep = ",")
+  write.table(pcaPt1$rotation, paste(OPfolder, "/", LoadingFile, sep="") , row.names=T, col.names=T, sep = ",")
   ### Summary table for PCA 
   StdDev = pcaPt1$sdev
   ## Variance explained by each component
@@ -62,7 +66,7 @@ PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA)
   ColNames = paste("PC", seq(1,length(StdDev)), sep = "")
   RowNames = c("Standard deviation", "Proportion of Variance", "Cumulative Proportion")
   SumPCAMat = rbind(StdDev, VarExp, CumVar)
-  write.table(SumPCAMat, CompImpFile, row.names=RowNames, col.names=ColNames, sep = ",")
+  write.table(SumPCAMat, paste(OPfolder, "/", CompImpFile, sep = ""), row.names=RowNames, col.names=ColNames, sep = ",")
   ### variance explained by each component
   ### pcaPt1$sdev^2 / sum(pcaPt1$sdev^2)
   

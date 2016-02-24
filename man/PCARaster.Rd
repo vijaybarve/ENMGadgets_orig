@@ -3,7 +3,8 @@
 \alias{PCARaster}
 \title{PCARaster - PCA of Raster files}
 \usage{
-PCARaster(BioStackFiles = NA, LoadingFile = NA, CompImpFile = NA)
+PCARaster(BioStackFiles = NA, LoadingFile = NA, CompImpFile = NA,
+  OPfolder = NA)
 }
 \arguments{
 \item{BioStackFiles}{- ESRI ASCII grid files of predictor variables}
@@ -11,6 +12,8 @@ PCARaster(BioStackFiles = NA, LoadingFile = NA, CompImpFile = NA)
 \item{LoadingFile}{- name of output file which stores loadings for components}
 
 \item{CompImpFile}{- name of output file of the PCA summaries}
+
+\item{OPfolder}{- name of output folder to save PCA component, loading and summary file}
 }
 \value{
 a summary of the PCA is returnd as a strcture
