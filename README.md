@@ -13,7 +13,7 @@ Gadgets for Ecological Niche Modelling
 install.packages("devtools")
 require(devtools)
 
-install_github("ENMGadgets", "vijaybarve")
+install_github("ENMGadgets", "narayanibarve")
 require(ENMGadgets)
 ```
 
@@ -23,6 +23,9 @@ Windows users have to first install [Rtools](http://cran.r-project.org/bin/windo
 
 ### Packages `ENMGadgets` depends on
 + [raster] (http://cran.r-project.org/web/packages/raster/)
++ [maptools] (http://cran.r-project.org/web/packages/raster/)
++ [sqldf] (http://cran.r-project.org/web/packages/raster/)
++ [fields] (http://cran.r-project.org/web/packages/raster/)
 
 ### Functions currently available
 
@@ -52,4 +55,29 @@ DistanceFilter()
 #### NicheViews
 ```r
 NicheViews()
+```
+
+#### BatchMask
+```r
+BatchMask()
+```
+
+#### ModelThreshold
+```r
+ModelThreshold()
+```
+
+#### PartialROC
+```r
+PartialROC()
+```
+
+#### MOP
+```r
+MOP()
+```
+
+#### BatchMaxent
+```r
+BatchMaxent()
 ```

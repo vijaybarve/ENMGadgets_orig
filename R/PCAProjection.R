@@ -109,13 +109,13 @@ PredictOnNewData<- function(pcaSummary=NA,ProjectonStackFiles=NA,OutputFolder=NA
   if(is.na(ProjectonStackFiles[1])){
     ProjectonStackFiles <- choose.files(caption="Select bioclimatic ASCII files to predict: ")
   } 
-  FutStack <<- MakeStack(ProjectonStackFiles)
+  FutStack <- MakeStack(ProjectonStackFiles)
   
   if(is.na(OutputFolder)){
     OutputFolder = choose.dir(default = getwd(), caption = "Select folder for Projection files: ")
   } 
   if(is.na(pcaSummary[1])){
-    Print("Please supply summary output of PCARaster function")
+    print("Please supply summary output of PCARaster function")
     return(NULL)
   } 
   fut = rasterToPoints(FutStack)
