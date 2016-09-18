@@ -1,9 +1,8 @@
-#' BatchMaxent - A function to execute Maxent niche modeling algorithm 
-#' for multiple projections and multiple species. (Noninteractive)
+#' iBatchMaxent - A function to execute Maxent niche modeling algorithm for multiple projections and multiple species.
 #' 
 #' Function BatchMaxent executes Maxent algorithm using dismo and it gives the flexibility of projecting the model to multiple projection
 #' areas. This process is done iteratively if the species list contains more than on species. To run this function successfully specific
-#' directory structure should be maintained. For interactive version check \link{iBatchMaxent}
+#' directory structure should be maintained. 
 #'
 #' In the projpath parameter, specify the path where the data is residing. MNameSameAsSpecies parameter is also required. This parameter
 #' is set to TRUE when M_folderName in the Calibration folder is same as species name. And is set to FALSE when M_folderName is different than
@@ -27,23 +26,27 @@
 #' variable contribution. Other subfolders are projection folders with 2 files per species, model prediction, and standard deviation of bootstrapped model
 #' @import dismo
 #' @import rgdal
-#' @param projpath - Project path where all the required files for model calibrations are stored. e.g. "c:/SpDist/Model"
-#' @param InpFlName - Name of the input file containing SpeciesName (OccurrenceFileName), M_folderName
-#' @param MNameSameAsSpecies - Logical variable, to designate, if the M_folderName is same as OccurrenceFileName or not.  
-#' @param arglist - List of arguments to be passed to maxent for model fitting and prediction.  
+#' @param projpath - Project path where all the required files for model calibrations
+#'  are stored. e.g. "c:/SpDist/Model"
+#' @param InpFlName - Name of the input file containing SpeciesName 
+#' (OccurrenceFileName), M_folderName
+#' @param MNameSameAsSpecies - Logical variable, to designate, if the M_folderName 
+#' is same as OccurrenceFileName or not.  
+#' @param arglist - List of arguments to be passed to maxent for model fitting and 
+#' prediction.  
 #' @examples \dontrun{
-#' BatchMaxent()
+#' iBatchMaxent()
 #' }
 #' @importFrom utils read.csv read.table
 #' @importFrom stats sd
 #' @export
 
 
-BatchMaxent <- function(projpath=NA, InpFlName=NA, MNameSameAsSpecies=FALSE, arglist=NA)
+iBatchMaxent <- function(projpath=NA, InpFlName=NA, MNameSameAsSpecies, arglist)
 {
     Valid = TRUE
     if (is.na(projpath)){
-      stop("Please specify projpath (the project path) or use iBatchMaxent for interactive version")
+           projpath = readline("Enter the project path : ")
     }
 	
 	if (!file.exists(projpath))
@@ -64,8 +67,7 @@ BatchMaxent <- function(projpath=NA, InpFlName=NA, MNameSameAsSpecies=FALSE, arg
 ## Get input file name in case species name and M folder name is not same	
 	if (is.na(InpFlName) & (MNameSameAsSpecies == FALSE) )
 	{ 
-	  stop("Please specify InpFlName (file name with path for calibration area and 
-	       species connection) or use iBatchMaxent for interactive version")
+	   InpFlName = readline("Enter the file name with path for calibration area and species connection : ")   
 	}
 
 ## if the file name is supplied and Speccies name and M folder name is not same. 	

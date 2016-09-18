@@ -6,6 +6,7 @@
 #' @examples \dontrun{
 #' DistanceFilter()
 #' }
+#' @importFrom stats dist
 #' @export
 
 DistanceFilter <- function(input=NA, threshold=1, output=NA)

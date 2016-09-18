@@ -1,7 +1,7 @@
-#' CropRaster - Crops (masks) the raster files with the shape file.
+#' iCropRaster - Crops (masks) the raster files with the shape file. (Interactive)
 #' 
-#' Function crops (masks) the raster files with the shape file. Noninteractive 
-#' version. For interactive veriosn to be used in scripts check \link{iCropRaster}
+#' Function crops (masks) the raster files with the shape file. Interactive 
+#' version. For noninteractive veriosn to be used in scripts check \link{CropRaster}
 #' 
 #' Masked files are stored in the current working directory with original name of 
 #' file + the sufix provided.
@@ -17,22 +17,19 @@
 #' @param ShapeFile - mask shapefile used to crop rasters 
 #' @param sufix - sufix for the output file name
 #' @examples \dontrun{
-#' CropRaster()
+#' iCropRaster()
 #' }
 #' @export
-CropRaster<-function(filelist=NA,ShapeFile=NA,sufix=NA)
+iCropRaster<-function(filelist=NA,ShapeFile=NA,sufix=NA)
 {
   if(is.na(filelist)){
-    stop("Please specify filelist (ASCII files to crop) or use 
-         iCropRasterr for interactive version")
+    filelist = choose.files(caption="Select ASCII files to crop: ")
   }
   if(is.na(ShapeFile)){
-    stop("Please specify ShapeFile (shape file as crop mask) or use 
-         iCropRasterr for interactive version")
+    ShapeFile = file.choose("Select shape file as crop mask: ")
   }
   if(is.na(sufix)){
-    stop("Please specify sufix (sufix for the output file name) or use 
-         iCropRasterr for interactive version")
+    sufix = readline("Enter Sufix to output file name: ")
   }
   ext1 = sufix
   Shp1 = readShapePoly(ShapeFile)

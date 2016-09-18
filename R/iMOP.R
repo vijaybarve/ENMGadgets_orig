@@ -1,6 +1,6 @@
-#' MOP - This function calculates distance measures between numerous groups of reference set of points (M) in n-dimensional space with each point in another set (G). 
+#' iMOP - This function calculates distance measures between numerous groups of reference set of points (M) in n-dimensional space with each point in another set (G). 
 #' 
-#' Noninteractive version. For interactive version refer \link{iMOP}
+#' Interactive version. For noninteractive version refer \link{MOP}
 #' 
 #' Function MOP also marks areas where extrapolation could occur during niche modeling exercise for careful model interpretation. 
 #' This function is especially useful when developed niche model in projected to different space or time. 
@@ -44,17 +44,14 @@
 #'         future use. 
 #' @param MxMESSOpFile - If MxMESS is set to Y, and want to save maxent MESS results in a file, then provide file name with folder in this parameter.
 #' @examples \dontrun{
-#' MOP()
+#' iMOP()
 #' }
 #' @export
 
 
 ## Main function. This function calls other function. To run the MOP Program run MainMESS(). This program requires raster and fields packages.
 
-MOP <- function(FileType=NA, m1=NA, m2=NA, InpRefFile=NA, InpExtentFile=NA, 
-                p1=NA, p2=NA, decil=NA, MxMESS=NA, GetAns=NA, 
-                OPRefFileName=NA, OPExtentFileName=NA, FlList=NA, 
-                SampleMName=NA, SampleGName=NA, MxMESSOpFile=NA)
+iMOP <- function(FileType=NA, m1=NA, m2=NA, InpRefFile=NA, InpExtentFile=NA, p1=NA, p2=NA, decil=NA, MxMESS=NA, GetAns=NA, OPRefFileName=NA, OPExtentFileName=NA, FlList=NA, SampleMName=NA, SampleGName=NA, MxMESSOpFile=NA)
 {
   Valid = TRUE
   ## Input data can be in matrix format or ASCII grid format. When the data is in matrix format, the structure should be X,Y,Var1,Var2..... for extent and reference
@@ -62,12 +59,14 @@ MOP <- function(FileType=NA, m1=NA, m2=NA, InpRefFile=NA, InpExtentFile=NA,
   ## If the data is in ASCII format, then ASCII file names should be same for extent and reference dataset. While selecting the files make sure that files are selected
   ## in sequence. (Reason, Raster package is not able to understand the file names, but it converts them to layer_1 layer_2......
   if(is.na(FileType)){
-    stop("Please specify FileType (ASCII format files or Matrix in text format A/M) or use 
-         iMOP for interactive version")
+    FileType = readline("Are you using ASCII format files or Matrix in text format (A/M) : ")
   }
+  
+  
+  
   switch(FileType,
          A = { if (is.na(m1[1])){
-           stop("Please specify m1 (Reference Files) or use iMOP for interactive version")
+           m1 = ReadASCII ("Choose Reference Files", c())
            if (length(m1) == 0 )
            {
              Valid = FALSE
@@ -76,7 +75,7 @@ MOP <- function(FileType=NA, m1=NA, m2=NA, InpRefFile=NA, InpExtentFile=NA,
            else {m1 = ReadASCII ("Choose Reference Files",m1)}
            
            if (is.na(m2[1])){
-             stop("Please specify m2 (Reference Files) or use iMOP for interactive version")
+             m2 = ReadASCII ("Choose Projected Files", c())
              if (length(m2) == 0 )
              {
                Valid = FALSE

@@ -13,7 +13,7 @@ Gadgets for Ecological Niche Modelling
 install.packages("devtools")
 require(devtools)
 
-install_github("ENMGadgets", "narayanibarve")
+install_github("vijaybarve/ENMGadgets")
 require(ENMGadgets)
 ```
 
@@ -26,25 +26,28 @@ Windows users have to first install [Rtools](http://cran.r-project.org/bin/windo
 + [maptools] (http://cran.r-project.org/web/packages/raster/)
 + [sqldf] (http://cran.r-project.org/web/packages/raster/)
 + [fields] (http://cran.r-project.org/web/packages/raster/)
++ [rgdal] (http://cran.r-project.org/web/packages/rgdal/)
++ [dismo] (http://cran.r-project.org/web/packages/dismo/)
+
 
 ### Functions currently available
 
 #### PCARaster
 
 ```r
-pcaop = PCARaster()
+pcaop = iPCARaster()
 ```
 
 #### PCAProjection
 
 ```r
-pcaop = PCAProjection()
+pcaop = iPCAProjection()
 ```
 
 #### CropRaster
 
 ```r
-CropRaster()
+iCropRaster()
 ```
 
 #### DistanceFilter
@@ -54,30 +57,30 @@ DistanceFilter()
 
 #### NicheViews
 ```r
-NicheViews()
+iNicheViews()
 ```
 
 #### BatchMask
 ```r
-BatchMask()
+iBatchMask()
 ```
 
 #### ModelThreshold
 ```r
-ModelThreshold()
+iModelThreshold()
 ```
 
 #### PartialROC
 ```r
-PartialROC()
+iPartialROC()
 ```
 
 #### MOP
 ```r
-MOP()
+iMOP()
 ```
 
 #### BatchMaxent
 ```r
-BatchMaxent()
+iBatchMaxent()
 ```

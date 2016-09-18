@@ -1,5 +1,7 @@
 #' PartialROC - A function to evaluate output of presence only nich models on continuous model outputs.
 #' 
+#' Noninteractive version. For interactive version refer \link{iPartialROC}
+#' 
 #' Function PartialROC generates the area under the curve values using bootstrap method. PartialROC is a model evaluation tool, used for
 #' continuous model outputs as compared to binary model outputs. This method is specially used for model trained using presence only data.
 #' For more details refer DOI: 10.1016/j.ecolmodel.2007.11.008
@@ -28,29 +30,31 @@
 #' @export
 
 
-PartialROC <- function(PresenceFile=NA, PredictionFile=NA, OmissionVal=NA, RandomPercent=NA, NoOfIteration=NA, OutputFile=NA)
+PartialROC <- function(PresenceFile=NA, PredictionFile=NA, OmissionVal=NA, 
+                       RandomPercent=NA, NoOfIteration=NA, OutputFile=NA)
 {
 
 
    ## Generate a matrix with point id in presence and suitablility value for that point
    ## Matrix format, PointID, Long, Lat, SuitVal
    if(is.na(PresenceFile)){
-      PresenceFile = file.choose("Select occurrence table : ")
+     stop("Please specify PresenceFile (occurrence table) or use iPartialROC for interactive version")
    }
    if(is.na(PredictionFile)){
-      PredictionFile = file.choose("Model Prediction : ")
+     stop("Please specify PredictionFile (Model Prediction) or use iPartialROC for interactive version")
    } 
    if(is.na(OmissionVal)){
-      OmissionVal = as.numeric(readline("Enter (1 - omission) value between 0 to 1 : "))
+     stop("Please specify OmissionVal (value between 0 to 1 [1 - omission)]) or use iPartialROC for interactive version")
    }
    if(is.na(RandomPercent)){
-      RandomPercent = as.numeric(readline("Percentage of random points to draw (1-100) : "))
+     stop("Please specify RandomPercent (Percentage of random points to draw [1-100]) or use iPartialROC for interactive version")
    }
    if(is.na(NoOfIteration)){
-      NoOfIteration = as.numeric(readline("Number of iteration for bootstrapping : "))
+     stop("Please specify NoOfIteration (Number of iteration for bootstrapping) or use iPartialROC for interactive version")
    }
    if(is.na(OutputFile)){
-      OutputFile = readline("Enter output file name : ")
+     stop("Please specify OutputFile (output file name) or use iPartialROC for interactive version")
+     OutputFile = readline("Enter output file name : ")
    }    
       
    OutMat = matrix(0,nrow=NoOfIteration+1, ncol = 4)
@@ -63,23 +67,6 @@ PartialROC <- function(PresenceFile=NA, PredictionFile=NA, OmissionVal=NA, Rando
    ## As x-axis is not going to change.   
    ClassPixels = AreaPredictedPresence(InRast)
  
- ########### Can be deleted later  
-   # ### Now calculate proportionate area predicted under each suitability 
-   # ClassPixels = freq(InRast)
-   # ### Remove the NA pixels from the table.
-   # if (is.na(ClassPixels[dim(ClassPixels)[1],1])== TRUE)
-   # {
-      # ClassPixels = ClassPixels[-dim(ClassPixels)[1],]
-   # }
-   
-   # ClassPixels = ClassPixels[order(nrow(ClassPixels):1),]
-   # TotPixPerClass = cumsum(ClassPixels[,2])
-   # PercentPixels = TotPixPerClass / sum(ClassPixels[,2])
-   
-   # ClassPixels = cbind(ClassPixels, TotPixPerClass, PercentPixels)
-   # ClassPixels = ClassPixels[order(nrow(ClassPixels):1),]  
-########### Till here can be deleted.
-   
    Occur = read.table(PresenceFile, header=T, sep =",")
    Occur = Occur[,-1]
    ExtRast = extract(InRast, Occur)

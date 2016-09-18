@@ -1,10 +1,10 @@
-#' NicheViews - 
+#' iNicheViews - (Interactive)
 #' 
 #' Function to generate bivariate graphs of all combinations of PCA components, 
 #' overlaid with occurrence data. Graphs are stored in jpg files. This 
-#' function also generates bar plots of each component, occurence of that components.
-#' 
-#' Nininteractive version. For interactive veriosn to be used in scripts refer \link{iNicheViews}
+#' function also generates bar plots of each component, occurence of that 
+#' components.  
+#' Interactive version. For noninteractive veriosn to be used in scripts refer \link{NicheViews}
 #' 
 #' Time required to run the function depends upon the size of component files. 
 #' 
@@ -18,24 +18,21 @@
 #' @param DataFileName - Species occurrences file - .csv file with "Species, 
 #' Longitude, Latitude" fields with headers. 
 #' @examples \dontrun{
-#' NicheViews()
+#' iNicheViews()
 #' }
 #' @export
-NicheViews <- function(OutputSufix=NA,RasterFileList=NA,DataFileName=NA)
+iNicheViews <- function(OutputSufix=NA,RasterFileList=NA,DataFileName=NA)
 {
   if(is.na(OutputSufix)){
-    stop("Please specify OutputSufix (Suffix for output graph files) or use 
-         iNicheViews for interactive version")
+    OutputSufix = readline("Enter Suffix for output graph files : ")
   }
   if(is.na(RasterFileList)){
-    stop("Please specify RasterFileList (Select ASCII files to crop) or use 
-         iNicheViews for interactive version")
+    RasterFileList = choose.files(caption="Select ASCII files to crop: ")
   }
   st1 = MakeStack(RasterFileList)
   cat("Stacks created\n")
   if(is.na(DataFileName)){ 
-    stop("Please specify DataFileName (occurrence points) or use 
-         iNicheViews for interactive version")
+    DataFileName = file.choose("Select occurrence points : ")
   }
   bpt1 = rasterToPoints(st1)
   cat("Points generated\n")

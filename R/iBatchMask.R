@@ -1,8 +1,11 @@
-#' BatchMask - Crops (masks) the raster files with multiple shape file.
+#' iBatchMask - Crops (masks) the raster files with multiple shape file. (Interactive)
 #' 
-#' Noninteractive version. For interactive version refer \link{iBatchMask}
+#' Interactive version. For interactive version refer \link{BatchMask}
 #' 
-#' Function crops (masks) the raster files with multiple shape file and stores them in separate folders.
+#' Function crops (masks) the raster files with multiple shape file and stores 
+#' them in separate folders. Interactive varions. For noninteractive version to
+#' use in scripts check \link{iBatchMask}
+#' 
 #' Masked files are stored in seperate folders with shape file name and names of the masked files are kept same. 
 #' For example, if the input asc files are bio1.asc, bio2.asc, and you select multiple shape files like shp1.shp, shp2.shp, shp3.shp, then 
 #' 3 folders named shp1, shp2 and shp3 will be created in output folder specified by user. Each folder will contain bio1.asc, bio2.asc
@@ -14,22 +17,19 @@
 #' @param SHPfilelist - mask shapefiles used to crop rasters 
 #' @param OPDirName - Output folder, where subfolders of shape files will be created 
 #' @examples \dontrun{
-#' BatchMask()
+#' iBatchMask()
 #' }
 #' @export
-BatchMask <- function(ASCfilelist=NA, SHPfilelist=NA, OPDirName= NA)
+iBatchMask <- function(ASCfilelist=NA, SHPfilelist=NA, OPDirName= NA)
 { 
   if(is.na(ASCfilelist)){
-    stop("Please specify ASCfilelist (ASCII files to crops) or use 
-         iBatchMask for interactive version")
+    ASCfilelist = choose.files(caption="Select ASCII files to crop: ")
   }
   if(is.na(SHPfilelist)){
-    stop("Please specify HPfilelist (shape files as crop mask) or use 
-         iBatchMask for interactive version")
+    SHPfilelist = choose.files(caption ="Select shape files: ")
   }
   if (is.na(OPDirName)) {
-    stop("Please specify OPDirName (output folder) or use 
-         iBatchMask for interactive version")
+    OPDirName = choose.dir(default = "", caption = "Select folder")
   }
   d1 = length(SHPfilelist)
   for (k in 1:d1)

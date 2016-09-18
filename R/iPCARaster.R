@@ -1,44 +1,45 @@
-#' PCARaster - PCA of Raster files
+#' iPCARaster - PCA of Raster files (Interactive)
 #' 
 #' Performs Principle Component Analysis of Raster objects and returns summary 
-#' and loadings for the componetns. For interactive version check \link{iPCARaster}
+#' and loadings for the componetns. *Interactive version*. For noninteractive veriosn 
+#' to be used in scripts check \link{PCARaster}
 #' 
 #' Main function to generate PCA for the selected bioclimatic layer and then save 
 #' the pca components in ASCII format.
-#' This function will accept the bioclimatic ASCII files. PCApca components are 
-#' stored as Comp1.asc, Comp2.asc...... and so on. 
-#' This function retuns the pca of the ascii data supplied to do further processing like checking for eigen values, broken stick etc. 
+#' Run the function pcaop = iPCARaster(). This function will ask user to choose the 
+#' bioclimatic ASCII files. pca components are stored as Comp1.asc, Comp2.asc...... and so on. 
+#' This function retuns the pca of the ascii data supplied to do further processing 
+#' like checking for eigen values, broken stick etc. 
 #' 
 #' @param BioStackFiles - ESRI ASCII grid files of predictor variables
 #' @param LoadingFile - name of output file which stores loadings for components
 #' @param CompImpFile - name of output file of the PCA summaries
-#' @param OPfolder - name of output folder to save PCA component, loading and summary file
+#' @param OPfolder - name of output folder to save PCA component, loading and 
+#' summary file
 #' @return a summary of the PCA is returnd as a strcture
 #' @examples \dontrun{
-#' pcaop = PCARaster()
+#' pcaop = iPCARaster()
 #' }
 #' @import raster
+#' @importFrom utils choose.dir choose.files write.table
+#' @importFrom stats prcomp na.omit
 #' @export
 
 
-PCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA,OPfolder=NA)
+iPCARaster <- function(BioStackFiles=NA,LoadingFile=NA,CompImpFile=NA,OPfolder=NA)
 {
   if(is.na(BioStackFiles)){
-    stop("Please specify BioStackFiles (bioclimatic ASCII files) or use 
-         iPCARaster for interactive version")
+    BioStackFiles = choose.files(caption="Select bioclimatic ASCII files : ")
   }
   BioStack = MakeStack(BioStackFiles)
   if(is.na(LoadingFile)){
-    stop("Please specify LoadingFile (PCA loading) or use iPCARaster for 
-         interactive version")
+    LoadingFile = readline("File name for PCA loading : ")
   }
   if(is.na(CompImpFile)){
-    stop("Please specify CompImpFile (PCA summary) or use iPCARaster for 
-         interactive version")
+    CompImpFile = readline("File name for PCA summary : ")
   }
   if(is.na(OPfolder)){
-    stop("Please specify OPfolder (Output folder to save PCA components) or use 
-         iPCARaster for interactive version")
+    OPfolder = choose.dir("Output folder to save PCA components : ")
   }  
   BioPt1 = rasterToPoints(BioStack)
   #BioPt1 = rasterToPoints(BioStack)
